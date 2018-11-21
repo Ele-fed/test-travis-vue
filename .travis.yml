@@ -8,12 +8,11 @@ install:
 before_script:
 
 script: 
-  - yarn run build
+ - yarn run build
 
 before_deploy:
-  - test $TRAVIS_TEST_RESULT = 0 \ # check that build passed successfully
-    && yarn run build \
-    && cd dist \
+  - yarn run build
+  - cd dist
 
 deploy:
   provider: pages
