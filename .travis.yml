@@ -11,6 +11,9 @@ script:
   - yarn run build
 
 before_deploy:
+  - test $TRAVIS_TEST_RESULT = 0 \ # check that build passed successfully
+    && yarn run build \
+    && cd dist \
 
 deploy:
   provider: pages
@@ -23,12 +26,12 @@ deploy:
 
 
 after_deploy:
+  - echo "deploy successful"
+
 
 after_script:
+  - echo "start commit changes"
   - cd ./dist
-  - cd dist
-  - pwd
-  - ls
   - git init 
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
