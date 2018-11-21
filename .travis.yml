@@ -39,14 +39,13 @@ after_deploy:
 
 
 after_script:
-  - cd dist
+  - cd ./dist
   - git init 
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
   - git add .
   - git commit -m "by travis boot"
-  # - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
-  - git push --force "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+  - git push --force "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
   
 
 env:
