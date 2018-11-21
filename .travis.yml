@@ -2,26 +2,39 @@ language: node_js
 node_js: 
   - '9.11.1'
 
+
+branches:
+  only:
+    - master
+
+
+cache:
+  directories:
+    - node_modules
+
+
 install: 
   - yarn install
 
+
 before_script:
+  - git config user.name "${U_NAME}"
+  - git config user.email "${U_EMAIL}"
+  - git clone --branch gh-pages https://${GH_REF} dist
+
 
 script: 
  - yarn run build
 
-before_deploy:
-  - yarn run build
-  - cd dist
-
-# deploy:
-#   provider: pages
-#   skip_cleanup: true
-#   keep-history: true
-#   github_token: ${GH_TOKEN}
-#   target-branch: gh-pages
-#   on: 
-#     branch: master
+ 
+deploy:
+  provider: pages
+  skip_cleanup: true
+  keep-history: true
+  github_token: ${GH_TOKEN}
+  target-branch: gh-pages
+  on: 
+    branch: master
 
 
 after_deploy:
@@ -29,17 +42,17 @@ after_deploy:
 
 
 after_script:
-  - echo "start commit changes"
-  - echo ${TRAIS_BUILD_DIR}
-  - cd ./dist
+  - cd dist
   - git init 
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
   - git add .
   - git commit -m "run build from boot"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+  # - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:${P_BRANCH}
+  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" gh-pages:gh-pages
+  
 
 env:
  global:
-   #- GH_REF: github.com/yimogit/metools.git
+   - GH_REF: github.com/Ele-fed/test-travis-vue.git
    #- P_BRANCH: gh-pages
