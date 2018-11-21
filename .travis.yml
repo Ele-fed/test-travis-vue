@@ -25,8 +25,7 @@ deploy:
 after_deploy:
 
 after_script:
-  - echo `pwd`
-  - cd dist
+  - cd ./dist
   - git init 
   - git config user.name "${U_NAME}"
   - git config user.email "${U_EMAIL}"
