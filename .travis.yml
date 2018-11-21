@@ -50,5 +50,5 @@ after_script:
 
 env:
  global:
-  #  - GH_REF: github.com/Ele-fed/test-travis-vue.git
    - P_BRANCH: gh-pages
+  #  - GH_REF: github.com/Ele-fed/test-travis-vue.git
